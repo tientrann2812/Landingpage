@@ -1,0 +1,31 @@
+{
+  "name": "landingpage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts HelloWorld out/video.mp4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tientrann2812/Landingpage.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tientrann2812/Landingpage/issues"
+  },
+  "homepage": "https://github.com/tientrann2812/Landingpage#readme",
+  "dependencies": {
+    "@remotion/cli": "^4.0.535",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "remotion": "^4.0.535"
+  },
+  "devDependencies": {
+    "@types/react": "^19.3.0",
+    "typescript": "^7.0.2"
+  }
+}
