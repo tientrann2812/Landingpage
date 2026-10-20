@@ -7,13 +7,15 @@ import {
   useVideoConfig,
 } from "remotion";
 
-// Font Baloo 2 (có dấu tiếng Việt) lưu sẵn trong public/fonts, không cần mạng.
-const fontFamily = "Baloo 2";
-loadFont({
-  family: fontFamily,
-  url: staticFile("fonts/Baloo2.ttf"),
-  weight: "400 800",
-});
+import { QrSwitcher } from "./DonateQR";
+
+// Font có dấu tiếng Việt lưu sẵn trong public/fonts, không cần mạng.
+// Mali: chữ tròn dễ thương cho nội dung. Pacifico: chữ viết tay cho tên kênh.
+const BODY_FONT = '"Mali", sans-serif';
+const TITLE_FONT = '"Pacifico", cursive';
+loadFont({ family: "Mali", url: staticFile("fonts/mali/Mali-SemiBold.ttf"), weight: "600" });
+loadFont({ family: "Mali", url: staticFile("fonts/mali/Mali-Bold.ttf"), weight: "700" });
+loadFont({ family: "Pacifico", url: staticFile("fonts/pacifico/Pacifico-Regular.ttf") });
 
 // Khung talkshow 1920x1080, nền trong suốt. Lặp 10 giây (300 frame) liền mạch,
 // nên mọi chuyển động đều có chu kỳ chia hết cho 300 frame.
@@ -23,9 +25,9 @@ const CREAM = "#fff5fa";
 const TEXT = "#8a2f63";
 
 const CAM = { x: 48, y: 48, w: 1280, h: 720 };
-const CHAT = { x: 1368, y: 48, w: 504, h: 720 };
+const CHAT = { x: 1368, y: 48, w: 504, h: 480 };
 const NAME = { x: 48, y: 812, w: 1280, h: 220 };
-const TIP = { x: 1368, y: 812, w: 504, h: 220 };
+const DONATE = { x: 1368, y: 568, w: 504, h: 464 };
 
 const SOCIALS = [
   { app: "TikTok", handle: "@ryyfc.legit", icon: "🎵" },
@@ -163,7 +165,7 @@ const Pill: React.FC<{ x: number; y: number; children: React.ReactNode }> = ({
       border: "5px solid #fff",
       color: "#fff",
       fontSize: 30,
-      fontWeight: 800,
+      fontWeight: 700,
       whiteSpace: "nowrap",
       textShadow: "0 2px 4px rgba(138,47,99,0.4)",
       boxShadow: "0 6px 14px rgba(138,47,99,0.3)",
@@ -185,9 +187,9 @@ const PARTICLES = [
 ];
 
 const SPARKLES = [
-  { x: 1300, y: 60, delay: 0 },
+  { x: 1310, y: 760, delay: 0 },
   { x: 70, y: 760, delay: 0.33 },
-  { x: 1860, y: 790, delay: 0.66 },
+  { x: 1860, y: 548, delay: 0.66 },
   { x: 1380, y: 36, delay: 0.5 },
 ];
 
@@ -214,7 +216,7 @@ export const TalkshowOverlay: React.FC<{ preview?: boolean }> = ({
   const heartBeat = 1 + 0.08 * Math.max(0, Math.sin(t * Math.PI * 20));
 
   return (
-    <AbsoluteFill style={{ fontFamily: `"${fontFamily}", sans-serif` }}>
+    <AbsoluteFill style={{ fontFamily: BODY_FONT }}>
       {preview && <PreviewBackground />}
 
       <Frame box={CAM} id="camGrad" angle={angle} />
@@ -236,12 +238,11 @@ export const TalkshowOverlay: React.FC<{ preview?: boolean }> = ({
           style={{
             position: "absolute",
             left: 48,
-            top: 22,
-            fontSize: 104,
-            fontWeight: 800,
-            lineHeight: 1.1,
+            top: -10,
+            fontFamily: TITLE_FONT,
+            fontSize: 84,
+            lineHeight: 1.45,
             color: TEXT,
-            letterSpacing: 2,
             textShadow: `4px 4px 0 #fff, 7px 7px 0 ${PINK}`,
           }}
         >
@@ -251,7 +252,7 @@ export const TalkshowOverlay: React.FC<{ preview?: boolean }> = ({
           style={{
             position: "absolute",
             left: 54,
-            top: 140,
+            top: 152,
             fontSize: 34,
             fontWeight: 600,
             color: TEXT,
@@ -292,47 +293,74 @@ export const TalkshowOverlay: React.FC<{ preview?: boolean }> = ({
               <div style={{ fontSize: 28, fontWeight: 600, color: "#b07cd9" }}>
                 {social.app}
               </div>
-              <div style={{ fontSize: 46, fontWeight: 800, color: TEXT }}>
+              <div style={{ fontSize: 46, fontWeight: 700, color: TEXT }}>
                 {social.handle}
               </div>
             </div>
           </div>
         </div>
-      </Panel>
-
-      <Panel box={TIP}>
         <div
           style={{
             position: "absolute",
-            inset: 0,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            color: TEXT,
+            right: 48,
+            top: 170,
+            width: 560,
             textAlign: "center",
+            fontSize: 24,
+            fontWeight: 600,
+            color: TEXT,
+            opacity: 0.75,
           }}
         >
-          <div style={{ fontSize: 40, fontWeight: 800 }}>
-            Gõ{" "}
-            <span
-              style={{
-                background: `linear-gradient(90deg, ${PINK}, ${LILAC})`,
-                color: "#fff",
-                borderRadius: 14,
-                padding: "0 14px",
-              }}
-            >
-              !donate
-            </span>
-          </div>
-          <div style={{ fontSize: 34, fontWeight: 600, marginTop: 4 }}>
-            để support Ryy{" "}
-            <span style={{ display: "inline-block", transform: `scale(${heartBeat})` }}>💖</span>
-          </div>
-          <div style={{ fontSize: 24, fontWeight: 600, marginTop: 6, opacity: 0.7 }}>
-            !lenh để xem các lệnh
-          </div>
+          Gõ !lenh để xem các lệnh của bot
+        </div>
+      </Panel>
+
+      <Panel box={DONATE}>
+        <div
+          style={{
+            position: "absolute",
+            left: 0,
+            right: 0,
+            top: 14,
+            textAlign: "center",
+            color: TEXT,
+            fontSize: 30,
+            fontWeight: 700,
+            lineHeight: 1.3,
+          }}
+        >
+          Gõ{" "}
+          <span
+            style={{
+              background: `linear-gradient(90deg, ${PINK}, ${LILAC})`,
+              color: "#fff",
+              borderRadius: 12,
+              padding: "0 12px",
+            }}
+          >
+            !donate
+          </span>{" "}
+          để support Ryy
+          <br />
+          phát triển kênh{" "}
+          <span style={{ display: "inline-block", transform: `scale(${heartBeat})` }}>💖</span>
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            left: (DONATE.w - 12 - 300) / 2,
+            top: 112,
+            width: 300,
+            height: 322,
+            padding: 10,
+            boxSizing: "border-box",
+            background: "#fff",
+            borderRadius: 24,
+            border: `4px dashed ${PINK}`,
+          }}
+        >
+          <QrSwitcher width={272} height={294} />
         </div>
       </Panel>
 
@@ -399,7 +427,7 @@ const PreviewBackground: React.FC = () => (
         justifyContent: "center",
         color: "rgba(255,255,255,0.35)",
         fontSize: 64,
-        fontWeight: 800,
+        fontWeight: 700,
       }}
     >
       WEBCAM

@@ -14,18 +14,50 @@ const FADE = 15;
 
 const QRS = [staticFile("qr-zypage.png"), staticFile("qr-vnpay.png")];
 
-export const DonateQR: React.FC = () => {
+// Độ mờ của từng mã QR tại một frame: mã 2 hiện dần quanh frame 150,
+// mờ dần ở cuối vòng để nối lại mã 1.
+export const useQrOpacities = () => {
   const frame = useCurrentFrame();
-  const { fps, durationInFrames } = useVideoConfig();
-
-  // Độ mờ của mã thứ 2: tăng dần quanh frame 150, giảm dần ở cuối để nối lại mã 1.
+  const { durationInFrames } = useVideoConfig();
   const second = interpolate(
     frame,
     [SHOW - FADE, SHOW, durationInFrames - FADE, durationInFrames],
     [0, 1, 1, 0],
     { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
   );
-  const opacities = [1 - second, second];
+  return [1 - second, second];
+};
+
+// Hai mã QR chồng lên nhau, chuyển qua lại.
+export const QrSwitcher: React.FC<{ width: number; height: number }> = ({
+  width,
+  height,
+}) => {
+  const opacities = useQrOpacities();
+  return (
+    <div style={{ position: "relative", width, height }}>
+      {QRS.map((src, i) => (
+        <Img
+          key={src}
+          src={src}
+          style={{
+            position: "absolute",
+            inset: 0,
+            width,
+            height,
+            objectFit: "contain",
+            opacity: opacities[i],
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+export const DonateQR: React.FC = () => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const [, second] = useQrOpacities();
 
   // Chữ "đập" nhẹ như nhịp tim, chu kỳ 1 giây.
   const pulse = 1 + 0.04 * Math.sin((frame / fps) * Math.PI * 2);
@@ -67,20 +99,9 @@ export const DonateQR: React.FC = () => {
           transform: `scale(${interpolate(pop, [0, 1], [0.96, 1])})`,
         }}
       >
-        {QRS.map((src, i) => (
-          <Img
-            key={src}
-            src={src}
-            style={{
-              position: "absolute",
-              inset: 24,
-              width: 512,
-              height: 572,
-              objectFit: "contain",
-              opacity: opacities[i],
-            }}
-          />
-        ))}
+        <div style={{ position: "absolute", inset: 24 }}>
+          <QrSwitcher width={512} height={572} />
+        </div>
       </div>
 
       <div style={{ display: "flex", gap: 14, marginTop: 30 }}>
