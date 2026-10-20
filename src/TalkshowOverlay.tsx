@@ -25,9 +25,9 @@ const CREAM = "#fff5fa";
 const TEXT = "#8a2f63";
 
 const CAM = { x: 48, y: 48, w: 1280, h: 720 };
-const CHAT = { x: 1368, y: 48, w: 504, h: 480 };
+const CHAT = { x: 1368, y: 48, w: 504, h: 720 };
 const NAME = { x: 48, y: 812, w: 1280, h: 220 };
-const DONATE = { x: 1368, y: 568, w: 504, h: 464 };
+const DONATE = { x: 1368, y: 812, w: 504, h: 220 };
 
 const SOCIALS = [
   { app: "TikTok", handle: "@ryyfc.legit", icon: "🎵" },
@@ -189,7 +189,7 @@ const PARTICLES = [
 const SPARKLES = [
   { x: 1310, y: 760, delay: 0 },
   { x: 70, y: 760, delay: 0.33 },
-  { x: 1860, y: 548, delay: 0.66 },
+  { x: 1860, y: 790, delay: 0.66 },
   { x: 1380, y: 36, delay: 0.5 },
 ];
 
@@ -320,47 +320,54 @@ export const TalkshowOverlay: React.FC<{ preview?: boolean }> = ({
         <div
           style={{
             position: "absolute",
-            left: 0,
-            right: 0,
-            top: 14,
+            left: 22,
+            top: 0,
+            bottom: 0,
+            width: 280,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
             textAlign: "center",
             color: TEXT,
-            fontSize: 30,
+            fontSize: 28,
             fontWeight: 700,
-            lineHeight: 1.3,
+            lineHeight: 1.35,
           }}
         >
-          Gõ{" "}
-          <span
-            style={{
-              background: `linear-gradient(90deg, ${PINK}, ${LILAC})`,
-              color: "#fff",
-              borderRadius: 12,
-              padding: "0 12px",
-            }}
-          >
-            !donate
-          </span>{" "}
-          để support Ryy
-          <br />
-          phát triển kênh{" "}
-          <span style={{ display: "inline-block", transform: `scale(${heartBeat})` }}>💖</span>
+          <div>
+            Gõ{" "}
+            <span
+              style={{
+                background: `linear-gradient(90deg, ${PINK}, ${LILAC})`,
+                color: "#fff",
+                borderRadius: 12,
+                padding: "0 12px",
+              }}
+            >
+              !donate
+            </span>
+          </div>
+          <div>để support Ryy</div>
+          <div>
+            phát triển kênh{" "}
+            <span style={{ display: "inline-block", transform: `scale(${heartBeat})` }}>💖</span>
+          </div>
         </div>
         <div
           style={{
             position: "absolute",
-            left: (DONATE.w - 12 - 300) / 2,
-            top: 112,
-            width: 300,
-            height: 322,
-            padding: 10,
+            right: 16,
+            top: 14,
+            width: 166,
+            height: 180,
+            padding: 6,
             boxSizing: "border-box",
             background: "#fff",
-            borderRadius: 24,
-            border: `4px dashed ${PINK}`,
+            borderRadius: 18,
+            border: `3px dashed ${PINK}`,
           }}
         >
-          <QrSwitcher width={272} height={294} />
+          <QrSwitcher width={148} height={162} />
         </div>
       </Panel>
 
