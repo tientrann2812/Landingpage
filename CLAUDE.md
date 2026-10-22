@@ -11,6 +11,8 @@ Project làm video bằng Remotion (React + TypeScript).
 - `src/index.ts`: `registerRoot(RemotionRoot)`
 - `src/Root.tsx`: khai báo các `<Composition>`. Mỗi video mới thêm một Composition với `id` riêng.
 - `src/HelloWorld.tsx`: video mẫu 1920x1080, 30fps, 90 frame (chữ fade-in).
+- `src/ryyTheme.tsx`: bộ nhận diện chung của Ryy TV (màu hồng/tím, font Mali + Pacifico trong `public/fonts`, viền, nơ, nhãn, mạng xã hội). Overlay mới nên dùng lại file này.
+- Overlay live (1920x1080, 300 frame lặp liền mạch): `TalkshowOverlay` (nền trong suốt, render WebM `--codec=vp8 --image-format=png --pixel-format=yuva420p`), `TalkshowPreview` (xem thử), `StartingSoon` (màn hình chờ, có nền). `DonateQR`: 2 mã QR donate luân phiên (ảnh trong `public/`).
 - Scripts: `npm run dev` (Studio), `npm run render` (render HelloWorld ra `out/video.mp4`).
 
 ## Quy trình mỗi khi làm video
