@@ -3,6 +3,7 @@ import { HelloWorld } from "./HelloWorld";
 import { DonateQR } from "./DonateQR";
 import { TalkshowOverlay } from "./TalkshowOverlay";
 import { StartingSoon } from "./StartingSoon";
+import { StreamEnding } from "./StreamEnding";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -44,6 +45,14 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="StartingSoon"
         component={StartingSoon}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="StreamEnding"
+        component={StreamEnding}
         durationInFrames={300}
         fps={30}
         width={1920}
