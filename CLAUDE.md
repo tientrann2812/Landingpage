@@ -28,8 +28,10 @@ Project làm video bằng Remotion (React + TypeScript).
 - Đăng qua Zapier connector → Buffer, action "Add to Queue". Buffer có 3 kênh: TikTok `ryyfc.legit`, YouTube `Ryy TV`, Facebook Page `Ryy TV` (múi giờ Asia/Ho_Chi_Minh).
 - Video nằm trên Google Drive `tientran.dth98@gmail.com`. File phải để "Bất kỳ ai có đường liên kết" (người dùng tự bật, Drive tool không bật được). Link video cho Buffer: `https://drive.usercontent.google.com/download?id=<FILE_ID>&export=download&confirm=t`
 - Bảng lịch: Google Sheet "Lich dang MXH" (id `1eNS8ilU7wMouUwwZ-CGzU5PaKBZ5UEJS3ueYSEuFxug`), cột: Ten file video, Trang dang, Ngay dang, Gio dang, Caption, Hashtag, Trang thai (`Cho` / `Da hen gio` / `Da dang`), Link bai dang, Ghi chu. Cập nhật trạng thái sau khi đăng/hẹn giờ.
-- Caption: người dùng ghi sao thì đăng y vậy, không tự thêm nội dung. Được phép thêm 1 câu kêu gọi bình luận (CTA).
+- Caption / tiêu đề: lấy NGUYÊN VĂN cột Caption, không thêm không bớt gì (không thêm tên game, "Phần N", "| Ryy TV", emoji hay câu kêu gọi bình luận). Chỉ nối thêm hashtag ở dòng dưới.
+- Hashtag: nếu cột Hashtag có ghi theo từng nền tảng thì dùng đúng như vậy; nếu trống thì dùng bộ mặc định bên dưới.
+- Kiếm tiền YouTube: API/Buffer không bật được. Vẫn lên lịch YouTube qua Buffer, người dùng tự bật kiếm tiền sau.
 - Hashtag cố định theo nền tảng (`<game>` = tên game viết liền, ví dụ `themimic`):
   - TikTok: `#ryyrauram #<game> #gamingontiktok`
-  - YouTube (Shorts): `#shorts #ryytv`; tiêu đề dạng `<Tên game> Phần N - <caption> | Ryy TV`, danh mục Gaming, công khai, không dành cho trẻ em.
+  - YouTube (Shorts): `#shorts #ryytv`; tiêu đề = nguyên văn cột Caption; mô tả = Caption + hashtag. Danh mục Gaming, công khai, không dành cho trẻ em.
   - Facebook: `#<TênGame> #Ryy`
